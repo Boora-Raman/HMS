@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Confirm Booking | Tour De Atlantis
+{% endblock title %}
+
+{%load static%}
+{% block stylesheet %}
+href="{% static 'css/BookingVerification.css' %}"
+{% endblock stylesheet %}
+
+{% block body %}
+<div class="container">
+  Guest name: {{username}}
+
+  <br>
+  <br>
+  Check in : {{Checkin}}
+  <br>  <br>
+  Checkout : {{Checkout}}
+  <br>
+  Room type : {{RoomType}}
+  <br>
+  Guest Count: {{Guest_count}}
+  <br>
+  Coupon Code :{{couponcode}}
+  <br>
+  Total Price: {{Totalprice}} 
+  <div>
+    <a class="btn btn-primary" href="/booking_confirm" role="button"> Submit </a>
+  </div>
+</div>
+{% endblock body %}

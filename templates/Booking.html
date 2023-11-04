@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Book A Room | Tour De Atlantis
+{% endblock title %}
+
+
+
+{% block stylesheet%}
+href="{% static 'css/Booking.css' %}" 
+{% endblock stylesheet %}
+
+{% block body %}
+
+<div class="form-container" id="mainForm">
+    <form method="post" id="bookingForm" action="/booking_verification">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="checkin">Check-in Date:</label>
+            <input type="date" id="checkin" name="checkin" required>
+        </div>
+
+        <div class="form-row">
+            <label for="checkout">Check-out Date:</label>
+            <input type="date" id="checkout" name="checkout" required>
+        </div>
+
+        <div class="form-row">
+            <label for="Rooms">Room Type:</label>
+            <select id="Rooms" name="Rooms" required>
+                <option value="Superior King Bed Garden">Superior King Bed Garden</option>
+          1      <option value="Superior Twin Bed Garden">Superior Twin Bed Garden</option>
+                <option value="Superior King Bed Pool">Superior King Bed Pool</option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="Executive Suite">Executive</option>
+                <option value="Luxury Suite">Luxury</option>
+                <option value="Premium Suite">Premium</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="guestCount">Number of Guests:</label>
+            <input type="text" id="guestCount" name="guestCount" required>
+        </div>
+
+        <div class="form-row">
+            <label for="Offers">Offer/Coupon Code:</label>
+            <input type="text" id="Offers" name="Offers">
+        </div>
+        <div class="submit">
+
+            <button type="submit" class="submit">Submit</button>
+
+        </div>
+    </form>
+</div>
+
+{% endblock body %}
+
