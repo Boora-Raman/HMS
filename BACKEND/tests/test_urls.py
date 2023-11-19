@@ -1,73 +1,42 @@
-# hms/tests/test_urls.py
-
-from django.test import SimpleTestCase
-from django.urls import reverse, resolve
+from django import forms  # Import the forms module if not already imported
+from django.test import TestCase
+from django.urls import reverse
 from hms.views import Welcome, signin, signup, rooms, booking, blogs, offers, gallery, booking_verification, booking_confirm, room_info, staff_manager, cleaning_manager, checkout_room, reception_manager, book_room
-from .views import user_logout
 
-class UrlsTestCase(SimpleTestCase):
+class UrlsTest(TestCase):
+    def test_open_all_urls(self):
+        # Define a list of URL names and corresponding views
+        url_views = [
+            ('Welcome', Welcome),
+            ('signin', signin),
+            ('signup', signup),
+            ('rooms', rooms),
+            ('booking', booking),
+            ('blogs', blogs),
+            ('offers', offers),
+            ('gallery', gallery),
+            ('booking_verification', booking_verification),
+            ('booking_confirm', booking_confirm),
+            ('room_info', room_info),
+            ('staff_manager', staff_manager),
+            ('cleaning_manager', cleaning_manager),
+            ('checkout_room', checkout_room),
+            ('reception_manager', reception_manager),
+            ('book_room', book_room),
+        ]
 
-    def test_welcome_url_resolves(self):
-        url = reverse('Welcome')
-        self.assertEqual(resolve(url).func, Welcome)
+        # Iterate through the URLs and simulate form submissions
+        for url_name, view in url_views:
+            url = reverse(url_name)
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 200, f"Failed to open URL: {url}")
 
-    def test_signin_url_resolves(self):
-        url = reverse('signin')
-        self.assertEqual(resolve(url).func, signin)
+            # If there's a button to click (e.g., a form submit), simulate the action
+            if hasattr(view, 'form_class') and issubclass(view.form_class, forms.Form):
+                form_data = {}  # Provide form data if needed
+                response = self.client.post(url, data=form_data)
+                self.assertEqual(response.status_code, 200, f"Failed to submit form on URL: {url}")
 
-    def test_signup_url_resolves(self):
-        url = reverse('signup')
-        self.assertEqual(resolve(url).func, signup)
-
-    def test_rooms_url_resolves(self):
-        url = reverse('rooms')
-        self.assertEqual(resolve(url).func, rooms)
-
-    def test_booking_url_resolves(self):
-        url = reverse('booking')
-        self.assertEqual(resolve(url).func, booking)
-
-    def test_blogs_url_resolves(self):
-        url = reverse('blogs')
-        self.assertEqual(resolve(url).func, blogs)
-
-    def test_offers_url_resolves(self):
-        url = reverse('offers')
-        self.assertEqual(resolve(url).func, offers)
-
-    def test_gallery_url_resolves(self):
-        url = reverse('gallery')
-        self.assertEqual(resolve(url).func, gallery)
-
-    def test_booking_verification_url_resolves(self):
-        url = reverse('booking_verification')
-        self.assertEqual(resolve(url).func, booking_verification)
-
-    def test_booking_confirm_url_resolves(self):
-        url = reverse('booking_confirm')
-        self.assertEqual(resolve(url).func, booking_confirm)
-
-    def test_room_info_url_resolves(self):
-        url = reverse('room_info')
-        self.assertEqual(resolve(url).func, room_info)
-
-    def test_staff_manager_url_resolves(self):
-        url = reverse('staff_manager')
-        self.assertEqual(resolve(url).func, staff_manager)
-
-    def test_cleaning_manager_url_resolves(self):
-        url = reverse('cleaning_manager')
-        self.assertEqual(resolve(url).func, cleaning_manager)
-
-    def test_checkout_room_url_resolves(self):
-        url = reverse('checkout_room')
-        self.assertEqual(resolve(url).func, checkout_room)
-
-    def test_reception_manager_url_resolves(self):
-        url = reverse('reception_manager')
-        self.assertEqual(resolve(url).func, reception_manager)
-
-    def test_book_room_url_resolves(self):
-        url = reverse('book_room')
-        self.assertEqual(resolve(url).func, book_room)
-
+                # Additional checks based on your application requirements
+                # For example, check for specific content in the response
+                self.assertContains(response, "Success Message", status_code=200, msg_prefix=f"Form submission failed on URL: {url}")
