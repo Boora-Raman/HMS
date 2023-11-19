@@ -92,7 +92,7 @@ jobs:
         pip install -r BACKEND/requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test hms.tests  # Adjust the path based on your project structure
+        python BACKEND/manage.py test hms.tests  # Adjust the path based on your project structure
 
     # Additional steps for running linting, etc., if needed
     # ...
