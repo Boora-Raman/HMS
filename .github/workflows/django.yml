@@ -28,7 +28,6 @@
 #     - name: Run Tests
 #       run: |
 #         python manage.py test
-
 name: Django CI
 
 on:
@@ -58,6 +57,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r BACKEND/requirements.txt
+    - name: Navigate back to the root directory
+      run: cd ..
     - name: Run Tests
       run: |
-        python manage.py test
+        python BACKEND/manage.py test
+
