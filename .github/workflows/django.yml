@@ -25,4 +25,5 @@ jobs:
 
       - name: Run Django Tests
         run: |
-          python manage.py BACKEND/test
+          cd BACKEND  # Change to the directory where manage.py is located
+          python manage.py test
