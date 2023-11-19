@@ -33,3 +33,4 @@ zope.interface==6.0
 typing-extensions>=4; python_version<"3.8"
 bottle==0.12.25
 whichcraft==0.6.1
+python_version==3.11.6
